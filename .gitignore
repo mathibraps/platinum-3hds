@@ -10,3 +10,8 @@
 *.elf
 *.smdh
 .DS_Store
+
+# The builder's templates (the compiled port) and the release files.
+/builder/templates/
+/dist/
+/build-android/

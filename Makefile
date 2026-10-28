@@ -75,6 +75,27 @@ $(CIA): $(BUILD)/$(TARGET).elf $(BUILD)/banner.bnr $(BUILD)/cia.smdh meta/app.rs
 
 cia: $(CIA)
 
+# The builder's templates (builder/templates/): the program packaged as above,
+# but with a placeholder for the game's files and original art, and the list
+# of the game's files a ROM must have. tools/make_builder.sh then builds the
+# builder for each platform.
+BUILDER_WORK := $(BUILD)/builder
+BUILDER_TEMPLATES := builder/templates
+
+builder-templates: $(BUILD)/$(TARGET).elf meta/app.rsf tools/make_builder_art.py tools/gen_rom_manifest.py
+	@test -f romfs/demo/title/titledemo.narc || (echo "romfs/ is empty: run tools/extract_rom.py first" && false)
+	@mkdir -p $(BUILDER_WORK)/romfs $(BUILDER_TEMPLATES)
+	echo "Platinum 3HDS" > $(BUILDER_WORK)/romfs/placeholder.txt
+	python3 -I tools/make_builder_art.py $(BUILDER_WORK)
+	$(BANNERTOOL) makebanner -i $(BUILDER_WORK)/banner.png -a $(BUILDER_WORK)/jingle.wav -o $(BUILDER_WORK)/banner.bnr
+	$(BANNERTOOL) makesmdh -s "$(APP_TITLE)" -l "$(APP_DESCRIPTION)" -p "$(APP_AUTHOR)" -i $(BUILDER_WORK)/icon.png -o $(BUILDER_TEMPLATES)/icon.smdh
+	$(MAKEROM) -f cia -o $(BUILDER_WORK)/template.cia -elf $< -rsf meta/app.rsf -icon $(BUILDER_TEMPLATES)/icon.smdh -banner $(BUILDER_WORK)/banner.bnr -exefslogo -target t \
+		"-DAPP_TITLE=$(APP_TITLE)" -DAPP_PRODUCT_CODE=$(APP_PRODUCT_CODE) -DAPP_UNIQUE_ID=$(APP_UNIQUE_ID) -DAPP_ROMFS=$(BUILDER_WORK)/romfs
+	$(DEVKITPRO)/tools/bin/3dsxtool $< $(BUILDER_WORK)/template.3dsx --smdh=$(BUILDER_TEMPLATES)/icon.smdh
+	gzip -9 -n -c $(BUILDER_WORK)/template.cia > $(BUILDER_TEMPLATES)/template.cia.gz
+	gzip -9 -n -c $(BUILDER_WORK)/template.3dsx > $(BUILDER_TEMPLATES)/template.3dsx.gz
+	python3 -I tools/gen_rom_manifest.py romfs $(BUILDER_TEMPLATES)/manifest.txt
+
 $(BUILD)/$(TARGET).elf: $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 
@@ -127,5 +148,5 @@ $(BUILD)/obj/%.o: %.c $(GEN_STAMP)
 clean:
 	rm -rf $(BUILD) $(TARGET).3dsx $(CIA)
 
-.PHONY: all clean meta cia
+.PHONY: all clean meta cia builder-templates
 .SECONDARY:

@@ -8,6 +8,15 @@ hardware those expect is provided by `platform/`.
 No game data is included. You supply your own ROM (Platinum USA), and its file
 system is extracted into `romfs/` at build time.
 
+## Get it
+
+Download the builder for your computer or phone from the
+[releases](../../releases): it makes the game from your own Pokémon Platinum
+(USA) ROM. Drop the ROM on it (or choose it in the Android app); it checks the
+ROM file by file and writes `Platinum3HDS.cia` (install with FBI) and
+`Platinum3HDS.3dsx` (Homebrew Launcher). `builder/README.txt` has the details
+for each platform.
+
 ## Status
 
 The whole game builds and links, both for the 3DS (`pokeplatinum.3dsx`) and for
@@ -238,6 +247,28 @@ make -f Makefile.host obj-test bg-test
 ```
 
 Add `--render-all` to time rendering on every frame.
+
+The builder (`builder/`, Go): the release's way to make the game from a ROM.
+It holds the port's program packaged without the game's files (made by
+`make builder-templates`: a CIA and a 3DSX with a placeholder RomFS,
+original banner art, and the list of the game's files with their SHA-1).
+Given a ROM, it reads the DS file system, checks every file against the list,
+builds the RomFS (level 3 for the 3DSX; under its IVFC hash tree in the CIA's
+NCCH) and redoes the hashes and sizes it changes: the NCCH's superblock
+hashes, the ExeFS icon hash, the TMD's content record. The HOME menu icon is
+made from the ROM's own DS icon.
+
+```sh
+make builder-templates     # builder/templates/ (needs romfs/ and makerom, bannertool)
+tools/make_builder.sh      # dist/: macOS (arm64, x64), Linux (x64, arm64), Windows (x64, arm64)
+tools/make_android.sh      # dist/: the Android app (needs the JDK and Android SDK in ../tools-host)
+```
+
+The Android app (`android/`) is built without Gradle (aapt2, javac, d8,
+apksigner). It runs the same builder program, packaged as its native library
+(Android/arm64, and Linux/x86-64 for emulators), on a copy of the chosen ROM.
+Its signing key is made in `../tools-host/android-keystore` the first time;
+later versions must be signed with the same key to install over it.
 
 ## Testing
 
