@@ -1,0 +1,46 @@
+name: Feature request
+description: An idea to make Platinum 3HDS better.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: What is it about?
+      options:
+        - Graphics or widescreen
+        - Speed (frame rate, loading)
+        - Sound
+        - Controls or touch screen
+        - Options and settings
+        - Saving
+        - The builder
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: What you'd like the port to do.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it would help
+      description: The problem it solves or what it would make better. Where in the game it matters, if anywhere in particular.
+    validations:
+      required: true
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+      description: Other ways it could work, or examples from other ports or games. Pictures welcome.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send it
+      options:
+        - label: I looked for an existing request about this.
+          required: true

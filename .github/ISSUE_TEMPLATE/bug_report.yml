@@ -1,0 +1,93 @@
+name: Bug report
+description: Something in the game or the builder doesn't work right.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please don't attach ROMs, save files from other games, or any of the game's files: they can't be shared here.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where is the problem?
+      options:
+        - The game (on the 3DS or an emulator)
+        - The builder (making the CIA or 3DSX from a ROM)
+        - The Android builder app
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The release you're using, from the builder's first line or the release page.
+      placeholder: 0.0.1-beta
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What went wrong, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to make it happen
+      description: Where in the game you were and what you did, step by step. Say if it happens every time.
+      placeholder: |
+        1. Load a save in Jubilife City
+        2. Open the Pokétch
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: What are you playing on?
+      options:
+        - New 3DS
+        - New 3DS XL
+        - New 2DS XL
+        - 3DS / 3DS XL / 2DS (original models)
+        - Azahar emulator
+        - Another emulator
+        - Not playing (builder problem)
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How is it installed?
+      options:
+        - CIA (installed with FBI, started from the HOME menu)
+        - 3DSX (Homebrew Launcher)
+        - Not installed yet (builder problem)
+  - type: input
+    id: builder-platform
+    attributes:
+      label: Builder platform (builder problems only)
+      description: The computer or phone you ran the builder on.
+      placeholder: Windows 11 x64, macOS 15 on Apple silicon, Android 14 ...
+  - type: textarea
+    id: output
+    attributes:
+      label: Builder output (builder problems only)
+      description: Copy everything the builder printed.
+      render: text
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshots or video
+      description: Drag files here. A photo of the screen is fine.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send it
+      options:
+        - label: I made the game from my own Pokémon Platinum (USA) ROM with the builder, without --force.
+        - label: I looked for an existing issue about this.
+          required: true

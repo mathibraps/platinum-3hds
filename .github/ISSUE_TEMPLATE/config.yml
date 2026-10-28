@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: How to make and install the game
+    url: https://github.com/mathibraps/platinum-3hds/releases/latest
+    about: The builders for each platform, with instructions on the release page.
