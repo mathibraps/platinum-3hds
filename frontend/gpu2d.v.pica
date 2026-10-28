@@ -1,0 +1,26 @@
+; Vertex shader for GPU composition of the DS screens: screen-space quads
+; (x, y in output pixels) with two sets of texture coordinates (the layer,
+; and the layer below for blends that read it from its image). zoffset.x
+; moves the depth, which marks the OBJ window's pixels.
+
+.fvec projection[4], zoffset
+
+.out outpos position
+.out outtc0 texcoord0
+.out outtc1 texcoord1
+
+.alias inpos v0
+.alias intc v1
+.alias intc1 v2
+
+.proc main
+	; inpos is (x, y, 0, 1): the loader fills in z and w
+	dp4 outpos.x, projection[0], inpos
+	dp4 outpos.y, projection[1], inpos
+	dp4 r0.z, projection[2], inpos
+	add outpos.z, zoffset.x, r0.z
+	dp4 outpos.w, projection[3], inpos
+	mov outtc0, intc
+	mov outtc1, intc1
+	end
+.end

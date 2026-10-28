@@ -1,0 +1,10 @@
+--- a/field_control.c	2026-10-18 02:36:32
++++ b/field_control.c	2026-10-18 02:36:32
+@@ -69,6 +69,7 @@
+ #include "unk_0205B33C.h"
+ #include "vars_flags.h"
+ #include "wireless_manager.h"
++int PlayerAvatar_GetMoveState(const PlayerAvatar *playerAvatar); // port: declared where Metrowerks inferred it
+ 
+ static BOOL Field_CheckMapTransition(FieldSystem *fieldSystem, const FieldInput *input);
+ static u16 Field_TileBehaviorToScript(FieldSystem *fieldSystem, u8 behavior);

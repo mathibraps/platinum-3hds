@@ -1,0 +1,10 @@
+--- a/comm_player_manager.c	2026-10-18 02:33:55
++++ b/comm_player_manager.c	2026-10-18 02:33:55
+@@ -44,6 +44,7 @@
+ #include "tv_segment.h"
+ #include "underground.h"
+ #include "unk_020655F4.h"
++int PlayerAvatar_GetMoveState(const PlayerAvatar *playerAvatar); // port: declared where Metrowerks inferred it
+ 
+ static int CommPlayerMan_GetSlideMovementSpeed(int param0, int param1);
+ static BOOL CommPlayer_MoveSlide(int netId, int param1);

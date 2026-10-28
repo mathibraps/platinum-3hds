@@ -1,0 +1,10 @@
+--- a/ov61_0222D498.c	2026-10-18 02:37:51
++++ b/ov61_0222D498.c	2026-10-18 02:37:51
+@@ -8,6 +8,7 @@
+ #include "gds_internal.h"
+ 
+ u8 Unk_ov61_0222EAB0[0x800];
++UnkStruct_ov61_0222E764 Unk_ov61_0222E764; // port: the one definition (see gds_internal.h)
+ 
+ void *ov61_0222D498(u32 size)
+ {

@@ -1,0 +1,12 @@
+--- a/sndarc_stream.c
++++ b/sndarc_stream.c
+@@ -1278,7 +1278,8 @@
+                     u32 end;
+ 
+                     if (blockOffsetSample == 0) {
+-                        *state = *((AdpcmState *)srcp)++;
++                        *state = *(AdpcmState *)srcp; /* port: no lvalue cast */
++                        srcp += sizeof(AdpcmState);
+                     }
+ 
+                     end = blockOffsetSample + samples;

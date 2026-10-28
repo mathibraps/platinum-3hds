@@ -1,0 +1,19 @@
+--- a/player_move.c	2026-10-18 02:59:57
++++ b/player_move.c	2026-10-18 02:59:57
+@@ -29,6 +29,7 @@
+ #include "sound_playback.h"
+ #include "terrain_collision_manager.h"
+ #include "unk_020655F4.h"
++int PlayerAvatar_GetMoveState(const PlayerAvatar *playerAvatar); // port: declared where Metrowerks inferred it
+ 
+ typedef BOOL (*TileBehaviorFunc)(u8);
+ 
+@@ -505,7 +506,7 @@
+     return TILE_MOVE_NONE;
+ }
+ 
+-static const TileBehaviorCheck sTileBehaviorCheckTable[] = {
++const TileBehaviorCheck sTileBehaviorCheckTable[] = {
+     { TileBehavior_IsIce, TILE_MOVE_ICE },
+     { TileBehavior_IsBikeSlope, TILE_MOVE_BIKE_SLOPE },
+     { TileBehavior_IsBikeRampEastward, TILE_MOVE_BIKE_RAMP_EAST },

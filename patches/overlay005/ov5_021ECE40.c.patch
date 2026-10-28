@@ -1,0 +1,11 @@
+--- a/ov5_021ECE40.c	2026-10-18 02:34:25
++++ b/ov5_021ECE40.c	2026-10-18 02:34:25
+@@ -335,7 +335,7 @@
+         v3->unk_00 = 0xffff;
+         v3->unk_04 = v2;
+         v3++;
+-        (u8 *)v2 += v1;
++        v2 = (void *)((u8 *)v2 + (v1)); // port: was a Metrowerks lvalue cast
+         param1--;
+     } while (param1);
+ }

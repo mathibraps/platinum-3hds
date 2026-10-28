@@ -1,0 +1,12 @@
+--- a/capture.c
++++ b/capture.c
+@@ -446,7 +446,8 @@
+     cap->bufferL = buffer0;
+     cap->bufferR = buffer1;
+     cap->bufLen = bufLen;
+-    cap->blockSize = bufLen / interval;
++    /* Port: reverb has no interval; ARM division by zero gives 0. */
++    cap->blockSize = interval != 0 ? bufLen / interval : 0;
+ 
+     cap->curBuffer = 0;
+ 

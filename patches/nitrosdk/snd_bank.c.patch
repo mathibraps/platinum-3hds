@@ -1,0 +1,31 @@
+--- a/snd_bank.c
++++ b/snd_bank.c
+@@ -393,11 +393,13 @@
+ {
+     SDK_NULL_ASSERT(waveArc);
+     SDK_MINMAX_ASSERT(index, 0, waveArc->waveCount);
+-    SDK_ASSERT(address == NULL || address >= (void *)HW_MAIN_MEM);
+ 
+     SNDi_LockMutex();
+ 
+-    waveArc->waveOffset[index] = (u32)address;
++    /* Port: an address is told apart from an offset into the archive by a
++     * tag in the top bit (the DS told them apart by the main RAM base; here
++     * data can lie at any address below 2GB). */
++    waveArc->waveOffset[index] = address != NULL ? ((u32)address | 0x80000000) : 0;
+ 
+ #ifdef SDK_ARM9
+     DC_StoreRange(&waveArc->waveOffset[index], sizeof(u32));
+@@ -419,10 +421,10 @@
+     offset = waveArc->waveOffset[index];
+ 
+     if (offset != 0) {
+-        if (offset < HW_MAIN_MEM)
++        if (!(offset & 0x80000000))
+             wave = (const SNDWaveData *)((u8 *)waveArc + offset);
+         else
+-            wave = (const SNDWaveData *)offset;
++            wave = (const SNDWaveData *)(offset & 0x7fffffff);
+     } else {
+         wave = NULL;
+     }

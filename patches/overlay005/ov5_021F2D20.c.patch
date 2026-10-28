@@ -1,0 +1,32 @@
+--- a/ov5_021F2D20.c	2026-10-18 02:59:57
++++ b/ov5_021F2D20.c	2026-10-18 02:59:57
+@@ -289,7 +289,7 @@
+     ov5_021F308C
+ };
+ 
+-static const BillboardAnim Unk_ov5_02200540[] = {
++const BillboardAnim Unk_ov5_02200540[] = {
+     { 0x0, 0xC, 0x0 },
+     { 0x0, 0x0, 0x2 }
+ };
+@@ -361,17 +361,17 @@
+ 
+ static const OverworldAnimManagerFuncs Unk_ov5_02200514;
+ 
+-static const BillboardAnim Unk_ov5_02200558[] = {
++const BillboardAnim Unk_ov5_02200558[] = {
+     { 0x0, 0x28, 0x1 },
+     { 0x0, 0x0, 0x2 }
+ };
+ 
+-static const BillboardAnim Unk_ov5_02200528[] = {
++const BillboardAnim Unk_ov5_02200528[] = {
+     { 0x0, 0x18, 0x1 },
+     { 0x0, 0x0, 0x2 }
+ };
+ 
+-static const BillboardAnim Unk_ov5_02200570[] = {
++const BillboardAnim Unk_ov5_02200570[] = {
+     { 0x0, 0x28, 0x1 },
+     { 0x0, 0x0, 0x2 }
+ };

@@ -1,0 +1,14 @@
+--- a/snd_util.c
++++ b/snd_util.c
+@@ -9,9 +9,8 @@
+ #define SND_VOLUME_SHIFT_1_MIN -120
+ #define SND_VOLUME_SHIFT_0_MIN -60
+ 
+-#if defined(SDK_TS) && defined(SDK_ARM7)
+-    #define SND_USE_SYSTEM_ROM_TABLE
+-#endif
++/* Port: the ARM7 uses the same tables as the ARM9 (copies of the ARM7 BIOS's,
++ * which the port does not have). */
+ 
+ #ifndef SND_USE_SYSTEM_ROM_TABLE
+ 

@@ -1,0 +1,25 @@
+# New game from the title screen into the overworld (no save file):
+# Rowan's introduction, naming, the bedroom, the X menu, then walking.
+frames 17000
+dumpevery 500
+dump 15050 15200 15400 15600 15800 16000 16200 16400 16600 16800 17000
+press START 400            # skip the opening
+press START 1000           # title screen
+mash A 1300 3300 40        # Rowan's introduction
+touch 120 80 3500 6        # "Do you understand everything so far?" YES
+mash A 3600 3760 40
+press DOWN 3820            # "Would you like to know more?" -> NO INFO NEEDED
+press DOWN 3850
+press A 3880
+mash A 3950 4380 40
+touch 128 96 4720 6        # touch the button in the middle of the Poke Ball
+mash A 4900 14900 40       # boy, name AAAAAAA, rival AAAAAAA, the TV programme
+press X 15000              # open the menu in the bedroom
+press DOWN 15100
+press DOWN 15130
+press B 15300              # close it
+press DOWN 15400 40        # walk down
+press LEFT 15500 60        # walk left
+press RIGHT 15700 120      # walk right
+press UP 15900 60          # walk up
+press DOWN 16100 200       # down the stairs

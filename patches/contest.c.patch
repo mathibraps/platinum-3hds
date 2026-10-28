@@ -1,0 +1,10 @@
+--- a/contest.c	2026-10-18 02:33:55
++++ b/contest.c	2026-10-18 02:33:55
+@@ -60,6 +60,7 @@
+ #include "unk_02094EDC.h"
+ #include "unk_02095AF0.h"
+ #include "vars_flags.h"
++void LinkContestRecords_IncrementSavaData(SaveData *saveData, enum PokemonContestType contestType, int placement); // port: hidden by an include-guard clash (contest.h and link_contest_records.h both use POKEPLATINUM_CONTEST_H)
+ 
+ FS_EXTERN_OVERLAY(overlay17);
+ FS_EXTERN_OVERLAY(overlay22);

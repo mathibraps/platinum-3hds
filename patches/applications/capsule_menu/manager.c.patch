@@ -1,0 +1,11 @@
+--- a/manager.c	2026-10-18 02:33:54
++++ b/manager.c	2026-10-18 02:33:54
+@@ -41,6 +41,8 @@
+ #include "unk_02012744.h"
+ #include "vram_transfer.h"
+ #include "yes_no_touch_menu.h"
++void CapsuleGraphics_Dummy(CapsuleAppManager *appMan); // port: declared where Metrowerks inferred it
++void CapsuleGraphics_LoadBgLayer2Tilemap(CapsuleAppManager *appMan, NARC *narc); // port: declared where Metrowerks inferred it
+ 
+ #define CANCEL_FADE_IN_STATE_ID              0
+ #define CANCEL_WAIT_MENU_STATE_ID            1

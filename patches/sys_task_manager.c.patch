@@ -1,0 +1,28 @@
+--- a/sys_task_manager.c	2026-10-18 12:17:23
++++ b/sys_task_manager.c	2026-10-18 12:17:23
+@@ -1,5 +1,7 @@
+ #include "sys_task_manager.h"
+ 
++#include "system.h" // port: gSystem.vBlankTaskMgr
++
+ #include "nitro/types.h"
+ #include <nitro.h>
+ #include <string.h>
+@@ -123,6 +125,17 @@
+     SysTask *task = SysTaskManager_InternalAddTask(sysTaskMgr, callback, param, priority);
+     sysTaskMgr->locked = FALSE;
+ 
++    // port: on the DS the VBlank interrupt keeps firing during long frames
++    // (loading) and runs the queued VBlank tasks, freeing their slots. The
++    // port only has VBlank when the game waits for it, so when the queue is
++    // full, the interrupt that the DS would have taken by now runs here.
++    if (task == NULL && sysTaskMgr == gSystem.vBlankTaskMgr) {
++        Ntr_RaiseVBlankIrq();
++        sysTaskMgr->locked = TRUE;
++        task = SysTaskManager_InternalAddTask(sysTaskMgr, callback, param, priority);
++        sysTaskMgr->locked = FALSE;
++    }
++
+     return task;
+ }
+ 

@@ -1,0 +1,10 @@
+--- a/field_battle_data_transfer.c	2026-10-18 02:33:55
++++ b/field_battle_data_transfer.c	2026-10-18 02:33:55
+@@ -57,6 +57,7 @@
+ #include "vars_flags.h"
+ 
+ #include "res/text/bank/location_names.h"
++#include "wifi_history_save_data.h"
+ 
+ static int CalcTerrain(const FieldSystem *fieldSystem, enum BattleBackground background);
+ static void SetBackgroundAndTerrain(FieldBattleDTO *dto, const FieldSystem *fieldSystem);

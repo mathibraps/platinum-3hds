@@ -1,0 +1,36 @@
+# From the Twinleaf Town save (tests/saves/twinleaf_outside.sav, as
+# outside.txt): Barry's house, Route 201, Rowan's briefcase (Turtwig) and
+# the first battle, against Barry's Chimchar (about frames 24400-31000),
+# then home. For frame timing in the emulator and battle snapshots.
+audio realtime
+frames 34000
+dump 25300 25420 26100 27100 28400
+press START 400    # skip the opening
+press START 1000    # title screen
+press A 1300    # CONTINUE
+mash A 1500 2000 60
+press RIGHT 2100 48
+press UP 2160 48
+press LEFT 2230 96
+press UP 2340 400    # north, until the guitarist stops you
+mash A 2900 3500 40
+press DOWN 3560 128
+press LEFT 3720 128    # to Barry's door
+press UP 3880 32
+mash A 4000 5300 40
+press UP 5400 48
+press UP 5560 16
+press LEFT 5600 64
+press UP 5700 96    # Barry's house, to the stairs
+press RIGHT 5850 16    # upstairs: Barry's room
+mash A 5960 7200 40
+press UP 7300 16
+press LEFT 7340 16    # downstairs
+press DOWN 7460 96
+press RIGHT 7580 64
+press DOWN 7660 40
+press RIGHT 7800 128
+press UP 7960 600    # north onto Route 201
+mash A 8600 33800 30    # Barry, Rowan, the briefcase, the battle, home
+press LEFT 20000 20    # face the briefcase
+press LEFT 20060 4

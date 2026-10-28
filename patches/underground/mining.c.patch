@@ -1,0 +1,13 @@
+--- a/mining.c	2026-10-18 02:59:57
++++ b/mining.c	2026-10-18 02:59:57
+@@ -2095,8 +2095,8 @@
+ 
+ static void Mining_RandomizeDirtLayers(BgConfig *bgConfig)
+ {
+-    static const u8 dirtLayer4MapLength = 8;
+-    static const u8 dirtLayer6MapLength = 5;
++    enum { dirtLayer4MapLength = 8 }; // port: constant expression for GCC
++    enum { dirtLayer6MapLength = 5 }; // port: constant expression for GCC
+     static u8 dirtLayer4Map[dirtLayer4MapLength][dirtLayer4MapLength] = {
+         { 0, 0, 4, 4, 4, 4, 0, 0 },
+         { 0, 4, 4, 4, 4, 4, 4, 0 },

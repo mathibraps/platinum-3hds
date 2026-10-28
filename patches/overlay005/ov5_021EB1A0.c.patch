@@ -1,0 +1,38 @@
+--- a/ov5_021EB1A0.c	2026-10-18 02:59:57
++++ b/ov5_021EB1A0.c	2026-10-18 02:59:57
+@@ -480,7 +480,7 @@
+     }
+ }
+ 
+-static void (*const Unk_ov5_021FF3D4[])(
++void (*const Unk_ov5_021FF3D4[])(
+     MapObject *, Billboard *, UnkStruct_ov5_021EB2EC *, int)
+     = {
+           ov5_021EB478,
+@@ -548,7 +548,7 @@
+     Billboard_AdvanceAnim(param1, (FX32_ONE));
+ }
+ 
+-static void (*const Unk_ov5_021FF420[])(MapObject *, Billboard *, UnkStruct_ov5_021EB2EC *, int) = {
++void (*const Unk_ov5_021FF420[])(MapObject *, Billboard *, UnkStruct_ov5_021EB2EC *, int) = {
+     ov5_021EB794,
+     ov5_021EB4AC,
+     ov5_021EB4AC,
+@@ -1011,7 +1011,7 @@
+     }
+ }
+ 
+-static void (*const Unk_ov5_021FF3F8[])(
++void (*const Unk_ov5_021FF3F8[])(
+     MapObject *, Billboard *, UnkStruct_ov5_021EBA0C *, int)
+     = {
+           ov5_021EBB44,
+@@ -1296,7 +1296,7 @@
+     MapObject_SetSpriteJumpOffset(mapObj, &v0);
+ }
+ 
+-static void (*const Unk_ov5_021FF31C[])(MapObject *, Billboard *, UnkStruct_ov5_021EBA0C *, int) = {
++void (*const Unk_ov5_021FF31C[])(MapObject *, Billboard *, UnkStruct_ov5_021EBA0C *, int) = {
+     ov5_021EC1D8,
+     ov5_021EC228,
+     ov5_021EC260,

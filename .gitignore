@@ -1,0 +1,12 @@
+# Nothing of the game goes in the repository: the extracted ROM, builds (which
+# contain it), test output (screenshots of it) and the pictures in art/.
+/romfs/
+/build-3ds/
+/build-host/
+/out/
+/art/*.png
+*.cia
+*.3dsx
+*.elf
+*.smdh
+.DS_Store

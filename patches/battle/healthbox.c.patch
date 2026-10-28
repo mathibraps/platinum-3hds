@@ -1,0 +1,13 @@
+--- a/healthbox.c	2026-10-18 02:59:57
++++ b/healthbox.c	2026-10-18 02:59:57
+@@ -182,8 +182,8 @@
+ static const SpriteTemplate *HealthBox_ArrowSpriteTemplate(u8 type);
+ static void Healthbox_Task_Scroll(SysTask *task, void *data);
+ static void Healthbox_Task_LevelUpFlashAnimation(SysTask *task, void *param1);
+-static void Healthbox_StartBobAnimation(HealthBox *healthbox);
+-static void Healthbox_StopBobAnimation(HealthBox *healthbox);
++void Healthbox_StartBobAnimation(HealthBox *healthbox);
++void Healthbox_StopBobAnimation(HealthBox *healthbox);
+ static void Healthbox_Task_Bob(SysTask *task, void *data);
+ static void HealthBox_EnableArrow(HealthBox *healthbox, BOOL enable);
+ 

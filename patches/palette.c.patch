@@ -1,0 +1,10 @@
+--- a/palette.c	2026-10-18 02:33:55
++++ b/palette.c	2026-10-18 02:33:55
+@@ -10,6 +10,7 @@
+ #include "heap.h"
+ #include "sys_task.h"
+ #include "sys_task_manager.h"
++#include <stdlib.h>
+ 
+ static u8 IsMaskedOn(u16 mask, u16 bit);
+ static void FlagFadedPaletteBuffer(PaletteData *paletteData, u16 bufferID);

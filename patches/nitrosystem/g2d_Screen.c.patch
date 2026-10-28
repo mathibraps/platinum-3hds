@@ -1,0 +1,14 @@
+--- a/g2d_Screen.c	2026-10-17 21:16:03
++++ b/g2d_Screen.c	2026-10-17 21:16:03
+@@ -310,9 +310,8 @@
+     addr = addrTable[bg];
+ 
+     if (addr != 0) {
+-        addr += HW_REG_BASE;
+-
+-        if ((*(u16 *)addr & REG_G2_BG0CNT_BGPLTTSLOT_MASK) != 0) {
++        // Port: read the emulated BG control register instead of the I/O address.
++        if ((Ntr_ReadIoReg16(addr) & REG_G2_BG0CNT_BGPLTTSLOT_MASK) != 0) {
+             slot += 2;
+         }
+     }

@@ -1,0 +1,11 @@
+--- a/g3b.c	2026-10-18 03:01:15
++++ b/g3b.c	2026-10-18 03:01:15
+@@ -5,7 +5,7 @@
+     #include <nitro/mi/dma.h>
+     #include <nitro/mi/memory.h>
+ 
+-    #include "../include/gxasm.h"
++    /* port: gxasm.h (assembly FIFO helpers) is not used here */
+ #endif
+ 
+ void G3BS_DirectN (GXDLInfo *info, int op, int nParams, const u32 *params)

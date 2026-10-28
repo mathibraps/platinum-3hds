@@ -1,0 +1,26 @@
+--- a/scrcmd.c	2026-10-18 12:57:58
++++ b/scrcmd.c	2026-10-18 12:57:58
+@@ -1003,7 +1003,10 @@
+ 
+ static BOOL ScrCmd_GoTo(ScriptContext *ctx)
+ {
+-    ScriptContext_Jump(ctx, ctx->scriptPtr + ScriptContext_ReadWord(ctx));
++    // port: the offset is relative to the end of the command; Metrowerks
++    // read scriptPtr after the call, which C leaves unspecified.
++    s32 offset = (s32)ScriptContext_ReadWord(ctx);
++    ScriptContext_Jump(ctx, ctx->scriptPtr + offset);
+     return FALSE;
+ }
+ 
+@@ -1052,7 +1055,10 @@
+ 
+ static BOOL ScrCmd_Call(ScriptContext *ctx)
+ {
+-    ScriptContext_Call(ctx, ctx->scriptPtr + ScriptContext_ReadWord(ctx));
++    // port: the offset is relative to the end of the command; Metrowerks
++    // read scriptPtr after the call, which C leaves unspecified.
++    s32 offset = (s32)ScriptContext_ReadWord(ctx);
++    ScriptContext_Call(ctx, ctx->scriptPtr + offset);
+     return FALSE;
+ }
+ 

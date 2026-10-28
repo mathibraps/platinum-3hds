@@ -1,0 +1,11 @@
+--- a/gfd_FrameTexVramMan.c	2026-10-17 21:15:16
++++ b/gfd_FrameTexVramMan.c	2026-10-17 21:15:16
+@@ -315,7 +315,7 @@
+     int i;
+     u16 numSlot = frmExVramMan_.numSlot;
+ 
+-    const numRegion = (numSlot > 1) ? numSlot + 1 : numSlot + 0;
++    const int numRegion = (numSlot > 1) ? numSlot + 1 : numSlot + 0;
+ 
+     NNS_GFD_ASSERT(IsSlotNumValid_(numSlot));
+ 

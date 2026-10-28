@@ -1,0 +1,11 @@
+--- a/gds_internal.h	2026-10-18 02:37:51
++++ b/gds_internal.h	2026-10-18 02:37:51
+@@ -71,7 +71,7 @@
+     void *unk_136;
+ } UnkStruct_ov61_0222D1FC;
+ 
+-UnkStruct_ov61_0222E764 Unk_ov61_0222E764;
++extern UnkStruct_ov61_0222E764 Unk_ov61_0222E764; // port: defined once in ov61_0222D498.c (Metrowerks merged the tentative definitions)
+ 
+ void ov61_0222CEDC(void);
+ BOOL ov61_0222CF40(char *url, int port, UnkStruct_ov62_022349A8_sub1 *param2);

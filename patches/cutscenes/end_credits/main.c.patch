@@ -1,0 +1,20 @@
+--- a/main.c	2026-10-18 03:01:00
++++ b/main.c	2026-10-18 03:01:00
+@@ -87,7 +87,7 @@
+ static void EndCredits_G3DPipelineCallback(void);
+ static void EndCredits_FreeG3DPipeline(G3DPipelineBuffers *g3dPipeline);
+ static void EndCredits_InitPalettes(EndCreditsApp *endCreditsApp);
+-static void EndCredits_FreeAppResources(EndCreditsApp *endCreditsApp);
++void EndCredits_FreeAppResources(EndCreditsApp *endCreditsApp);
+ static void EndCredits_FreeTilemapBuffers(EndCreditsApp *endCreditsApp);
+ static void EndCredits_InitBackgrounds2(BgConfig *bgConfig);
+ 
+@@ -301,7 +301,7 @@
+     SpriteSystem_UpdateTransfer();
+ }
+ 
+-static void EndCredits_FreeAppResources(EndCreditsApp *endCreditsApp)
++void EndCredits_FreeAppResources(EndCreditsApp *endCreditsApp)
+ {
+     GF_ASSERT(endCreditsApp->subScreenStringsManager != NULL);
+ 

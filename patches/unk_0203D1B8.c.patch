@@ -1,0 +1,11 @@
+--- a/unk_0203D1B8.c	2026-10-18 02:59:57
++++ b/unk_0203D1B8.c	2026-10-18 02:59:57
+@@ -1361,7 +1361,7 @@
+     return (void *)v0;
+ }
+ 
+-static const ApplicationManagerTemplate Unk_020EA328 = {
++const ApplicationManagerTemplate Unk_020EA328 = {
+     WiFiEarth_Init,
+     WiFiEarth_Main,
+     WiFiEarth_Exit,

@@ -1,0 +1,364 @@
+--- a/unk_0206450C.c	2026-10-18 03:01:00
++++ b/unk_0206450C.c	2026-10-18 03:01:00
+@@ -596,7 +596,7 @@
+     return 1;
+ }
+ 
+-static int (*const Unk_020EE900[])(MapObject *, UnkStruct_0206496C *) = {
++int (*const Unk_020EE900[])(MapObject *, UnkStruct_0206496C *) = {
+     sub_020649CC,
+     sub_02064A00,
+     sub_02064A1C,
+@@ -697,7 +697,7 @@
+     return 1;
+ }
+ 
+-static int (*const Unk_020EE870[])(MapObject *, UnkStruct_0206496C *) = {
++int (*const Unk_020EE870[])(MapObject *, UnkStruct_0206496C *) = {
+     sub_02064B20,
+     sub_02064B40,
+     sub_02064B5C,
+@@ -811,7 +811,7 @@
+     return 0;
+ }
+ 
+-static int (*const Unk_020EE814[])(MapObject *, UnkStruct_02064C28 *) = {
++int (*const Unk_020EE814[])(MapObject *, UnkStruct_02064C28 *) = {
+     sub_02064C6C,
+     sub_02064CA8,
+     sub_02064D68
+@@ -1013,7 +1013,7 @@
+     return 0;
+ }
+ 
+-static int (*const Unk_020EE7AC[])(MapObject *, UnkStruct_02064D98 *) = {
++int (*const Unk_020EE7AC[])(MapObject *, UnkStruct_02064D98 *) = {
+     sub_02064EEC,
+     sub_02064FFC
+ };
+@@ -1222,7 +1222,7 @@
+     return 0;
+ }
+ 
+-static int (*const Unk_020EE820[])(MapObject *, UnkStruct_0206502C *) = {
++int (*const Unk_020EE820[])(MapObject *, UnkStruct_0206502C *) = {
+     sub_02065124,
+     sub_02065188,
+     sub_020651A4,
+@@ -1479,7 +1479,7 @@
+     }
+ }
+ 
+-static const int Unk_020EEA88[] = {
++const int Unk_020EEA88[] = {
+     0x10,
+     0x20,
+     0x30,
+@@ -1487,7 +1487,7 @@
+     -1
+ };
+ 
+-static const int Unk_020EEA9C[] = {
++const int Unk_020EEA9C[] = {
+     0x0,
+     0x1,
+     0x2,
+@@ -1495,71 +1495,71 @@
+     -1
+ };
+ 
+-static const int Unk_020EE7B4[] = {
++const int Unk_020EE7B4[] = {
+     0x0,
+     0x2,
+     -1
+ };
+ 
+-static const int Unk_020EE7D8[] = {
++const int Unk_020EE7D8[] = {
+     0x0,
+     0x3,
+     -1
+ };
+ 
+-static const int Unk_020EE7C0[] = {
++const int Unk_020EE7C0[] = {
+     0x1,
+     0x2,
+     -1
+ };
+ 
+-static const int Unk_020EE7E4[] = {
++const int Unk_020EE7E4[] = {
+     0x1,
+     0x3,
+     -1
+ };
+ 
+-static const int Unk_020EE9A0[] = {
++const int Unk_020EE9A0[] = {
+     0x0,
+     0x1,
+     0x2,
+     -1
+ };
+ 
+-static const int Unk_020EE960[] = {
++const int Unk_020EE960[] = {
+     0x0,
+     0x1,
+     0x3,
+     -1
+ };
+ 
+-static const int Unk_020EE970[] = {
++const int Unk_020EE970[] = {
+     0x0,
+     0x2,
+     0x3,
+     -1
+ };
+ 
+-static const int Unk_020EE990[] = {
++const int Unk_020EE990[] = {
+     0x1,
+     0x2,
+     0x3,
+     -1
+ };
+ 
+-static const int Unk_020EE808[] = {
++const int Unk_020EE808[] = {
+     0x0,
+     0x1,
+     -1
+ };
+ 
+-static const int Unk_020EE7FC[] = {
++const int Unk_020EE7FC[] = {
+     0x2,
+     0x3,
+     -1
+ };
+ 
+-static const int Unk_020EEA10[] = {
++const int Unk_020EEA10[] = {
+     0x0,
+     0x1,
+     0x2,
+@@ -1567,180 +1567,180 @@
+     -1
+ };
+ 
+-static const int Unk_020EE7F0[] = {
++const int Unk_020EE7F0[] = {
+     0x0,
+     0x1,
+     -1
+ };
+ 
+-static const int Unk_020EE7CC[] = {
++const int Unk_020EE7CC[] = {
+     0x2,
+     0x3,
+     -1
+ };
+ 
+-static const int Unk_020EE910[] = {
++const int Unk_020EE910[] = {
+     0x0,
+     0x3,
+     0x2,
+     0x1
+ };
+ 
+-static const int Unk_020EE8A0[] = {
++const int Unk_020EE8A0[] = {
+     0x3,
+     0x2,
+     0x1,
+     0x0
+ };
+ 
+-static const int Unk_020EE8E0[] = {
++const int Unk_020EE8E0[] = {
+     0x1,
+     0x0,
+     0x3,
+     0x2
+ };
+ 
+-static const int Unk_020EE8F0[] = {
++const int Unk_020EE8F0[] = {
+     0x2,
+     0x1,
+     0x0,
+     0x3
+ };
+ 
+-static const int Unk_020EE8D0[] = {
++const int Unk_020EE8D0[] = {
+     0x2,
+     0x3,
+     0x1,
+     0x0
+ };
+ 
+-static const int Unk_020EE8C0[] = {
++const int Unk_020EE8C0[] = {
+     0x2,
+     0x3,
+     0x1,
+     0x0
+ };
+ 
+-static const int Unk_020EE880[] = {
++const int Unk_020EE880[] = {
+     0x1,
+     0x0,
+     0x2,
+     0x3
+ };
+ 
+-static const int Unk_020EE9F0[] = {
++const int Unk_020EE9F0[] = {
+     0x3,
+     0x1,
+     0x0,
+     0x2
+ };
+ 
+-static const int Unk_020EE920[] = {
++const int Unk_020EE920[] = {
+     0x2,
+     0x0,
+     0x1,
+     0x3
+ };
+ 
+-static const int Unk_020EE930[] = {
++const int Unk_020EE930[] = {
+     0x0,
+     0x1,
+     0x3,
+     0x2
+ };
+ 
+-static const int Unk_020EE980[] = {
++const int Unk_020EE980[] = {
+     0x3,
+     0x2,
+     0x0,
+     0x1
+ };
+ 
+-static const int Unk_020EE9B0[] = {
++const int Unk_020EE9B0[] = {
+     0x1,
+     0x3,
+     0x2,
+     0x0
+ };
+ 
+-static const int Unk_020EE940[] = {
++const int Unk_020EE940[] = {
+     0x3,
+     0x0,
+     0x1,
+     0x2
+ };
+ 
+-static const int Unk_020EE840[] = {
++const int Unk_020EE840[] = {
+     0x0,
+     0x1,
+     0x2,
+     0x3
+ };
+ 
+-static const int Unk_020EE830[] = {
++const int Unk_020EE830[] = {
+     0x2,
+     0x3,
+     0x0,
+     0x1
+ };
+ 
+-static const int Unk_020EE9E0[] = {
++const int Unk_020EE9E0[] = {
+     0x1,
+     0x2,
+     0x3,
+     0x0
+ };
+ 
+-static const int Unk_020EE890[] = {
++const int Unk_020EE890[] = {
+     0x0,
+     0x2,
+     0x1,
+     0x3
+ };
+ 
+-static const int Unk_020EEA00[] = {
++const int Unk_020EEA00[] = {
+     0x1,
+     0x3,
+     0x0,
+     0x2
+ };
+ 
+-static const int Unk_020EE950[] = {
++const int Unk_020EE950[] = {
+     0x2,
+     0x1,
+     0x3,
+     0x0
+ };
+ 
+-static const int Unk_020EE9C0[] = {
++const int Unk_020EE9C0[] = {
+     0x3,
+     0x0,
+     0x2,
+     0x1
+ };
+ 
+-static const int Unk_020EE850[] = {
++const int Unk_020EE850[] = {
+     0x0,
+     0x3,
+     0x1,
+     0x2
+ };
+ 
+-static const int Unk_020EE860[] = {
++const int Unk_020EE860[] = {
+     0x1,
+     0x2,
+     0x0,
+     0x3
+ };
+ 
+-static const int Unk_020EE8B0[] = {
++const int Unk_020EE8B0[] = {
+     0x2,
+     0x0,
+     0x3,
+     0x1
+ };
+ 
+-static const int Unk_020EE9D0[] = {
++const int Unk_020EE9D0[] = {
+     0x3,
+     0x1,
+     0x2,
+@@ -1798,7 +1798,7 @@
+     { 0x27, NULL }
+ };
+ 
+-static const int Unk_020EEAD0[] = {
++const int Unk_020EEAD0[] = {
+     0x2,
+     0x6,
+     0x7,

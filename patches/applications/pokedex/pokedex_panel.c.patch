@@ -1,0 +1,10 @@
+--- a/pokedex_panel.c	2026-10-18 02:33:55
++++ b/pokedex_panel.c	2026-10-18 02:33:55
+@@ -2,6 +2,7 @@
+ 
+ #include <nitro.h>
+ #include <string.h>
++#include "heap.h"
+ 
+ static int inline CurrentButtonIndex(const PokedexPanelData *pokedexPanelData);
+ static int inline CalcButtonIndex(const PokedexPanelData *pokedexPanelData, int col, int row);

@@ -1,0 +1,29 @@
+--- a/unk_020673B8.c	2026-10-18 02:59:57
++++ b/unk_020673B8.c	2026-10-18 02:59:57
+@@ -366,7 +366,7 @@
+     return 0;
+ }
+ 
+-static void (*const Unk_020EF630[])(MapObject *) = {
++void (*const Unk_020EF630[])(MapObject *) = {
+     sub_020674A0,
+     sub_020674A0,
+     sub_020674A0,
+@@ -381,7 +381,7 @@
+     sub_020674A0
+ };
+ 
+-static int (*const Unk_020EF660[])(MapObject *) = {
++int (*const Unk_020EF660[])(MapObject *) = {
+     sub_020674A4,
+     sub_020674A4,
+     sub_020674A4,
+@@ -396,7 +396,7 @@
+     sub_020674A4
+ };
+ 
+-static int (*const Unk_020EF690[])(MapObject *) = {
++int (*const Unk_020EF690[])(MapObject *) = {
+     sub_020674A8,
+     sub_020674A8,
+     sub_020674A8,

@@ -1,0 +1,29 @@
+# Walking and running around Twinleaf Town, for frame timing in the emulator.
+# Start from tests/saves/twinleaf_outside.sav (saved outside the player's
+# house): on the 3DS copy it to sdmc:/pokeplat_test_save.sav, on the harness
+# pass --save with a copy of it.
+audio realtime
+frames 6000
+press START 400
+press START 1000
+press A 1300                 # CONTINUE
+mash A 1500 2000 60
+press DOWN 2100 64           # walk
+press RIGHT 2200 128
+press UP 2350 64
+press LEFT 2450 128
+press DOWN 2600 64
+press LEFT 2700 128
+press UP 2850 64
+press RIGHT 2950 128
+press DOWN 3100 64 
+press B 3200 600             # run (B held) while moving
+press RIGHT 3200 128
+press DOWN 3350 64
+press LEFT 3450 200
+press UP 3700 64
+press RIGHT 3800 200
+press DOWN 4100 64
+press LEFT 4200 128
+press UP 4350 64
+press RIGHT 4450 128

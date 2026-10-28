@@ -1,0 +1,11 @@
+--- a/ov5_021F3A50.c	2026-10-18 02:59:57
++++ b/ov5_021F3A50.c	2026-10-18 02:59:57
+@@ -218,7 +218,7 @@
+     ov5_021F3CCC
+ };
+ 
+-static const BillboardAnim Unk_ov5_02200660[] = {
++const BillboardAnim Unk_ov5_02200660[] = {
+     { 0x0, 0x2, 0x0 },
+     { 0x0, 0x0, 0x2 }
+ };

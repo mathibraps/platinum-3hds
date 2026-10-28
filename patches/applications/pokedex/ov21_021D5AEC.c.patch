@@ -1,0 +1,10 @@
+--- a/ov21_021D5AEC.c	2026-10-18 02:33:55
++++ b/ov21_021D5AEC.c	2026-10-18 02:33:55
+@@ -34,6 +34,7 @@
+ 
+ #include "res/graphics/pokedex/zukan.naix"
+ #include "res/text/bank/pokedex.h"
++int PokedexSort_NumDisplayed(const PokedexSortData *param0); // port: declared where Metrowerks inferred it
+ 
+ typedef struct {
+     int unk_00;

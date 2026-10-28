@@ -1,0 +1,17 @@
+; Pass-through vertex shader for the DS 3D engine on the 3DS GPU: the port's
+; geometry engine has already transformed, lit and clipped every vertex.
+
+.out outpos position
+.out outclr color
+.out outtc0 texcoord0
+
+.alias inpos v0
+.alias inclr v1
+.alias intc v2
+
+.proc main
+	mov outpos, inpos
+	mov outclr, inclr
+	mov outtc0, intc
+	end
+.end

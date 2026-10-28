@@ -1,0 +1,10 @@
+--- a/scrcmd_contests.c	2026-10-18 02:33:55
++++ b/scrcmd_contests.c	2026-10-18 02:33:55
+@@ -25,6 +25,7 @@
+ #include "trainer_info.h"
+ #include "unk_020298BC.h"
+ #include "vars_flags.h"
++#include "chatot_cry.h"
+ 
+ static BOOL ResumeWhenContestSynced(ScriptContext *ctx);
+ static BOOL IsContestCommTaskDone(ScriptContext *ctx);

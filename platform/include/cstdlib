@@ -1,0 +1,2 @@
+/* Metrowerks accepted the C++ header name in C files. */
+#include <stdlib.h>

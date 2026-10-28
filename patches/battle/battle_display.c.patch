@@ -1,0 +1,12 @@
+--- a/battle_display.c	2026-10-18 02:33:55
++++ b/battle_display.c	2026-10-18 02:33:55
+@@ -842,6 +842,9 @@
+ }
+ 
+ #include "battle_sub_menus/battle_party.h"
++void BattleController_EmitSelectedCommand(BattleSystem *battleSys, int battler, int command); // port: declared where Metrowerks inferred it
++void BattleController_EmitSelectedMove(BattleSystem *battleSys, int battler, int command); // port: declared where Metrowerks inferred it
++void BattleController_EmitSelectedTarget(BattleSystem *battleSys, int battler, int command); // port: declared where Metrowerks inferred it
+ 
+ typedef struct PartyMenuData {
+     BattleSystem *battleSys;

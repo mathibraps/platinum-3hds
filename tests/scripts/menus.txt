@@ -1,0 +1,26 @@
+# The X menu's screens in the bedroom: bag, trainer card, save, options.
+frames 18600
+dump 15100 15300 15500 15700 15900 16100 16300 16500 16700 16900 17100 17300 17500 17700 17900 18100 18300 18500
+press START 400
+press START 1000
+mash A 1300 3300 40
+touch 120 80 3500 6
+mash A 3600 3760 40
+press DOWN 3820
+press DOWN 3850
+press A 3880
+mash A 3950 4380 40
+touch 128 96 4720 6
+mash A 4900 14900 40
+press X 15000              # menu
+press A 15100              # BAG
+press B 15600              # back to the menu
+press DOWN 15900
+press A 15950              # trainer card
+press B 16500
+press DOWN 16800
+press A 16850              # SAVE
+press A 17100              # "Would you like to save the game?" YES
+press DOWN 17700
+press A 17750              # OPTIONS
+press B 18300

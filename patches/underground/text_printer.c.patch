@@ -1,0 +1,10 @@
+--- a/text_printer.c	2026-10-18 02:33:55
++++ b/text_printer.c	2026-10-18 02:33:55
+@@ -13,6 +13,7 @@
+ #include "system.h"
+ #include "text.h"
+ #include "trainer_info.h"
++#include "underground/manager.h"
+ 
+ enum EraseMessageBoxType {
+     CLEAR_MESSAGE_BOX = 0,

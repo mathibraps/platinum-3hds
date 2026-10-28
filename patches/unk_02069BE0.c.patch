@@ -1,0 +1,29 @@
+--- a/unk_02069BE0.c	2026-10-18 02:59:57
++++ b/unk_02069BE0.c	2026-10-18 02:59:57
+@@ -133,7 +133,7 @@
+     return 0;
+ }
+ 
+-static int (*const Unk_020EF8D4[])(MapObject *, UnkStruct_02069CA8 *) = {
++int (*const Unk_020EF8D4[])(MapObject *, UnkStruct_02069CA8 *) = {
+     sub_02069C48,
+     sub_02069C8C
+ };
+@@ -302,7 +302,7 @@
+     return 0;
+ }
+ 
+-static int (*const Unk_020EF8EC[])(MapObject *, UnkStruct_02069F48 *) = {
++int (*const Unk_020EF8EC[])(MapObject *, UnkStruct_02069F48 *) = {
+     sub_02069E5C,
+     sub_02069E98
+ };
+@@ -517,7 +517,7 @@
+     return 0;
+ }
+ 
+-static int (*const Unk_020EF8DC[])(MapObject *, UnkStruct_0206A0BC *) = {
++int (*const Unk_020EF8DC[])(MapObject *, UnkStruct_0206A0BC *) = {
+     sub_0206A1AC,
+     sub_0206A1DC
+ };

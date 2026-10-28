@@ -1,0 +1,7 @@
+# With a save file: title screen, the main menu, CONTINUE into the game.
+frames 2400
+dump 1100 1200 1300 1400 1600 1800 2000 2200 2400
+press START 400            # skip the opening
+press START 1000           # title screen
+press A 1300               # main menu: CONTINUE
+mash A 1500 2000 60

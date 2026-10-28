@@ -1,0 +1,20 @@
+# New game, then save in the bedroom (writes the save file).
+frames 16500
+dump 15250 15400 15600 15800 16000 16200 16400
+press START 400
+press START 1000
+mash A 1300 3300 40
+touch 120 80 3500 6
+mash A 3600 3760 40
+press DOWN 3820
+press DOWN 3850
+press A 3880
+mash A 3950 4380 40
+touch 128 96 4720 6
+mash A 4900 14900 40
+press X 15000              # menu (cursor on BAG)
+press DOWN 15100 4
+press DOWN 15140 4         # SAVE
+press A 15200 4
+mash A 15350 16300 60
+

@@ -1,0 +1,11 @@
+--- a/trainer_encounter.c	2026-10-18 02:59:57
++++ b/trainer_encounter.c	2026-10-18 02:59:57
+@@ -695,7 +695,7 @@
+     return 0;
+ }
+ 
+-static int (*const sApproachingTrainerTask[])(ApproachingTrainerData *) = {
++int (*const sApproachingTrainerTask[])(ApproachingTrainerData *) = {
+     [STATE_UNPAUSE_MOVEMENT] = ApproachingTrainerTask_UnpauseMovement,
+     [STATE_TRY_FACE_DIRECTION] = ApproachingTrainerTask_TryFaceDirection,
+     [STATE_CHECK_REVEAL_OR_FACE_DIRECTION] = ApproachingTrainerTask_CheckRevealOrFaceDirection,

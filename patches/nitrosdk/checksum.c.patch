@@ -1,0 +1,55 @@
+--- a/checksum.c	2026-10-17 21:29:43
++++ b/checksum.c	2026-10-17 21:29:43
+@@ -9,7 +9,7 @@
+ 	sum = 0;
+ 
+ 	if (((u32)input) & 1) {
+-		sum += (*((u8 *)input)++ << 8);
++		sum += (*(*(const u8 **)&input)++ << 8);
+ 		length--;
+ 		fSwap = TRUE;
+ 	}
+@@ -17,7 +17,7 @@
+ 	while ((length >> 17) > 0) {
+ 		length -= (1 << 17);
+ 		for (n = (1 << 16); n > 0; n--) {
+-			sum += *((u16 *)input)++;
++			sum += *(*(const u16 **)&input)++;
+ 		}
+ 
+ 		sum = (sum >> 16) + (sum & 0xffff);
+@@ -25,7 +25,7 @@
+ 	}
+ 
+ 	for (n = (length >> 1); n > 0; n--) {
+-		sum += *((u16 *)input)++;
++		sum += *(*(const u16 **)&input)++;
+ 	}
+ 
+ 	if (length & 1) {
+@@ -70,14 +70,14 @@
+ 	sum = 0;
+ 
+ 	if (((u32)input) & 1) {
+-		sum += *((u8 *)input)++;
++		sum += *(*(const u8 **)&input)++;
+ 		length--;
+ 	}
+ 
+ 	while ((length >> 17) > 0) {
+ 		length -= (1 << 17);
+ 		for (n = (1 << 16); n > 0; n--) {
+-			sum += *((u16 *)input)++;
++			sum += *(*(const u16 **)&input)++;
+ 		}
+ 
+ 		sum = (sum >> 16) + (sum & 0xffff);
+@@ -85,7 +85,7 @@
+ 	}
+ 
+ 	for (n = (length >> 1); n > 0; n--) {
+-		sum += *((u16 *)input)++;
++		sum += *(*(const u16 **)&input)++;
+ 	}
+ 
+ 	if (length & 1) {

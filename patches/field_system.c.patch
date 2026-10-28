@@ -1,0 +1,15 @@
+--- a/field_system.c
++++ b/field_system.c
+@@ -53,6 +53,12 @@
+ static void HandleFieldInput(FieldSystem *fieldSystem);
+ 
+ static FieldSystem *sFieldSystem;
++
++/* Port: for the desktop harness's debug output (game/port_debug.c). */
++FieldSystem *Port_DebugFieldSystem(void)
++{
++    return sFieldSystem;
++}
+ 
+ static BOOL InitFieldSystemContinue(ApplicationManager *appMan, int *state)
+ {

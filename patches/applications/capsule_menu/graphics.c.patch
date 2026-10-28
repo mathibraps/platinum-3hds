@@ -1,0 +1,10 @@
+--- a/graphics.c	2026-10-18 02:33:54
++++ b/graphics.c	2026-10-18 02:33:54
+@@ -40,6 +40,7 @@
+ #include "touch_screen.h"
+ #include "unk_02012744.h"
+ #include "unk_0202419C.h"
++int SealManger_CapsuleMenuField(CapsuleAppManager *appMan, int index); // port: declared where Metrowerks inferred it
+ 
+ #define CAPSULE_MENU_EDIT           0
+ #define CAPSULE_MENU_QUIT           1

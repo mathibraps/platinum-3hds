@@ -1,0 +1,22 @@
+--- a/snd_command.c
++++ b/snd_command.c
+@@ -491,7 +491,7 @@
+                 break;
+             case SND_COMMAND_SETUP_CHANNEL_PCM:
+                 SND_SetupChannelPcm((int)UNPACK_COMMAND(command.arg[0], 0, 16),
+-                                    (const void *)UNPACK_COMMAND(command.arg[1], 0, 27),
++                                    (const void *)command.arg[1], /* port: full 32-bit address */
+                                     (SNDWaveFormat)UNPACK_COMMAND(command.arg[3], 24, 2),
+                                     (SNDChannelLoop)UNPACK_COMMAND(command.arg[3], 26, 2),
+                                     (int)UNPACK_COMMAND(command.arg[3], 0, 16),
+@@ -585,7 +585,9 @@
+     SNDi_CallAlarmHandler((int)data);
+ #else
+ 
+-    if (data >= HW_MAIN_MEM) {
++    /* Port: command lists can lie anywhere in the address space; only the
++     * wake-up request (0) is a plain message. */
++    if (data != SND_MSG_REQUEST_COMMAND_PROC) {
+         result = OS_SendMessage(&sCommandMesgQueue, (OSMessage)data, OS_MESSAGE_NOBLOCK);
+         SDK_ASSERTMSG(result, "Failed OS_SendMessage");
+     } else {

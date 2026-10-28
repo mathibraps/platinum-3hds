@@ -1,0 +1,76 @@
+# Desktop test build of the port, compiled for 32-bit WebAssembly so pointers
+# are 4 bytes like on the 3DS (the game and NitroSystem rely on that), and run
+# with wasmtime. Needs wasi-sdk and wasmtime (WASI_SDK, WASMTIME below).
+#   make -f Makefile.host
+#   tools/run_host.sh build-host/pokeplat_host.wasm romfs out --frames 900
+
+BUILD := build-host
+include sources.mk
+.DEFAULT_GOAL := $(BUILD)/pokeplat_host.wasm
+
+WASI_SDK ?= ../tools-host/wasi-sdk-34.0-arm64-macos
+WASMTIME ?= ../tools-host/wasmtime-v49.0.3-aarch64-macos/wasmtime
+CC := $(WASI_SDK)/bin/clang --target=wasm32-wasip1 --sysroot=$(WASI_SDK)/share/wasi-sysroot
+NM := $(WASI_SDK)/bin/llvm-nm
+CFLAGS := -DNTR_DEBUG_HOOKS $(COMMON_CFLAGS) -O2 -g -D_WASI_EMULATED_PROCESS_CLOCKS $(INCLUDES) $(PREFIX_HEADER) -MMD -MP
+LDFLAGS := -Wl,-z,stack-size=1048576 -lwasi-emulated-process-clocks
+RUN := WASMTIME=$(WASMTIME) tools/run_host.sh
+
+CORE_OBJS := $(patsubst %.c,$(BUILD)/obj/%.o,$(PORT_SRCS) frontend/png_write.c) \
+	$(patsubst %.c,$(BUILD)/obj/game/%.o,$(GAME_SRCS)) \
+	$(patsubst %.c,$(BUILD)/obj/game/lib/%.o,$(LIB_SRCS)) \
+	$(patsubst %.c,$(BUILD)/obj/nns/%.o,$(NNS_SRCS)) \
+	$(patsubst %.c,$(BUILD)/obj/sdk/%.o,$(SDK_SRCS)) $(SND7_OBJS)
+
+$(BUILD)/pokeplat_host.wasm: $(CORE_OBJS) $(BUILD)/obj/frontend/main_host.o $(BUILD)/obj/frontend/input_script.o \
+		$(BUILD)/obj/frontend/compose_ref.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+# Sprite renderer test: make -f Makefile.host obj-test
+$(BUILD)/obj_test.wasm: $(CORE_OBJS) $(BUILD)/obj/tests/obj_test.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+obj-test: $(BUILD)/obj_test.wasm
+	$(RUN) $< romfs $(BUILD)/obj_test.png
+
+# Fast text BG path vs. per-pixel reference: make -f Makefile.host bg-test
+CORE_OBJS_NO_RENDER := $(filter-out $(BUILD)/obj/platform/src/ntr_render.o,$(CORE_OBJS))
+$(BUILD)/text_bg_test.wasm: $(CORE_OBJS_NO_RENDER) $(BUILD)/obj/tests/text_bg_test.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+bg-test: $(BUILD)/text_bg_test.wasm
+	$(RUN) $< romfs
+
+$(BUILD)/obj/game/%.o: $(GAMESRC_DIR)/%.c $(GEN_STAMP)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(GAME_CFLAGS) -c -o $@ $<
+
+$(BUILD)/obj/nns/%.o: $(NNSSRC_DIR)/%.c $(GEN_STAMP)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(GAME_CFLAGS) $(NNS_CFLAGS) $(NNS_PRIVATE_INCLUDES) -c -o $@ $<
+
+$(BUILD)/obj/sdk/%.o: $(SDKSRC_DIR)/%.c $(GEN_STAMP)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(GAME_CFLAGS) $(SDK_PRIVATE_INCLUDES) -c -o $@ $<
+
+$(BUILD)/obj/%.o: %.c $(GEN_STAMP)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+print-includes:
+	@echo $(INCLUDES)
+
+print-cc:
+	@echo $(CC)
+
+print-game-cflags:
+	@echo $(COMMON_CFLAGS) $(GAME_CFLAGS)
+
+# Header dependencies written by -MMD.
+-include $(shell find $(BUILD)/obj -name '*.d' 2>/dev/null)
+
+clean:
+	rm -rf $(BUILD)
+
+.PHONY: clean obj-test bg-test print-includes print-game-cflags print-cc
+.SECONDARY:

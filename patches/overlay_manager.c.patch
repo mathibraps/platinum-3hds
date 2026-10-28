@@ -1,0 +1,11 @@
+--- a/src/overlay_manager.c	2026-10-17 20:36:58
++++ b/src/overlay_manager.c	2026-10-17 20:36:58
+@@ -10,7 +10,7 @@
+ {
+     ApplicationManager *appMan = Heap_Alloc(heapID, sizeof(ApplicationManager));
+ 
+-    appMan->template = *template;
++    memcpy((void *)&appMan->template, template, sizeof(*template)); // const member: plain assignment only compiles with MWCC
+     appMan->execState = 0;
+     appMan->procState = 0;
+     appMan->args = args;

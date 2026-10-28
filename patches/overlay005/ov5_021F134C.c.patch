@@ -1,0 +1,20 @@
+--- a/ov5_021F134C.c	2026-10-18 02:59:57
++++ b/ov5_021F134C.c	2026-10-18 02:59:57
+@@ -369,7 +369,7 @@
+     ov5_021F176C
+ };
+ 
+-static const VecFx32 Unk_ov5_022002E4[] = {
++const VecFx32 Unk_ov5_022002E4[] = {
+     { FX32_ONE, FX32_ONE, FX32_ONE },
+     { FX32_ONE + (FX32_ONE / 4), FX32_ONE, FX32_ONE + (FX32_ONE / 4) },
+     { FX32_ONE + (FX32_ONE / 4), FX32_ONE, FX32_ONE },
+@@ -377,7 +377,7 @@
+     { FX32_ONE - (FX32_ONE / 8), FX32_ONE, FX32_ONE - (FX32_ONE / 8) }
+ };
+ 
+-static const fx32 Unk_ov5_02200284[] = {
++const fx32 Unk_ov5_02200284[] = {
+     FX32_ONE * 14,
+     FX32_ONE * 18,
+     FX32_ONE * 18,

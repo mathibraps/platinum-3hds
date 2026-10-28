@@ -1,0 +1,11 @@
+--- a/hm_cut_in.c	2026-10-18 02:59:57
++++ b/hm_cut_in.c	2026-10-18 02:59:57
+@@ -1009,7 +1009,7 @@
+     FlyLandingAnim_DoNothing
+ };
+ 
+-static int (*const *const FlyLandingAnimFuncCollections[])(FlyLandingEnvExtended *) = {
++int (*const *const FlyLandingAnimFuncCollections[])(FlyLandingEnvExtended *) = {
+     HideBirdSpriteFuncCollection,
+     FlyLandingAnimFuncCollection
+ };

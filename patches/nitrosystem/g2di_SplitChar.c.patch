@@ -1,0 +1,11 @@
+--- a/g2di_SplitChar.c	2026-10-17 21:16:03
++++ b/g2di_SplitChar.c	2026-10-17 21:16:03
+@@ -35,7 +35,7 @@
+     NNS_G2D_ALIGN_ASSERT(*ppChar, 2);
+ 
+     c = *(const wchar_t *)*ppChar;
+-    ((const wchar_t *)*ppChar)++;
++    *ppChar = (const wchar_t *)*ppChar + 1; // lvalue cast: only Metrowerks accepts the original
+ 
+     return c;
+ }

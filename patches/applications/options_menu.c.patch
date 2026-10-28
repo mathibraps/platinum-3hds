@@ -1,0 +1,228 @@
+--- a/options_menu.c
++++ b/options_menu.c
+@@ -16,6 +16,7 @@
+ #include "message.h"
+ #include "narc.h"
+ #include "network_icon.h"
++#include "port_settings.h"
+ #include "overlay_manager.h"
+ #include "palette.h"
+ #include "render_text.h"
+@@ -48,8 +49,12 @@
+ #define CHOICES_X     (12 * 8 + 4)
+ #define CHOICES_WIDTH (48 * 8)
+ 
+-#define SINGLE_ENTRY_HEIGHT 16
++/* Port: rows are 14 pixels apart instead of 16, which fits the port's 3D
++ * EDGES row into the same window; the 16-pixel cursor bar is centered on its
++ * row (CURSOR_SCROLL). */
++#define SINGLE_ENTRY_HEIGHT 14
+ #define FIRST_ENTRY_OFFSET  24
++#define CURSOR_SCROLL(cursor) (-((cursor) * SINGLE_ENTRY_HEIGHT + FIRST_ENTRY_OFFSET - 1))
+ 
+ #define NUM_WINDOWS      3
+ #define NUM_BG_TEMPLATES 5
+@@ -63,6 +68,7 @@
+     ENTRY_BATTLE_STYLE,
+     ENTRY_BUTTON_MODE,
+     ENTRY_MESSAGE_BOX_FRAME,
++    ENTRY_3D_EDGES, /* port */
+     ENTRY_CLOSE,
+ 
+     MAX_ENTRIES,
+@@ -84,6 +90,7 @@
+     u32 dummy10_5 : 16;
+     u32 redrawMessageBox : 1;
+     u32 dummy10_22 : 10;
++    int edges3D; /* port: PORT_SETTING_3D_EDGES when the menu opened */
+     BgConfig *bgConfig;
+     OptionsMenu options;
+     Options *saveOptions;
+@@ -109,6 +116,7 @@
+             OptionsMenuEntry battleStyle;
+             OptionsMenuEntry buttonMode;
+             OptionsMenuEntry messageBoxStyle;
++            OptionsMenuEntry edges3D;
+             OptionsMenuEntry close;
+         };
+     } entries;
+@@ -162,6 +170,7 @@
+     menuData->options.soundMode = Options_SoundMode(options);
+     menuData->options.buttonMode = Options_ButtonMode(options);
+     menuData->options.messageBoxStyle = Options_Frame(options);
++    menuData->edges3D = Port_GetSetting(PORT_SETTING_3D_EDGES);
+     menuData->heapID = HEAP_ID_OPTIONS_MENU;
+     menuData->saveOptions = options;
+ 
+@@ -181,6 +190,7 @@
+         menuData->options.soundMode = menuData->entries.soundMode.selected;
+         menuData->options.buttonMode = menuData->entries.buttonMode.selected;
+         menuData->options.messageBoxStyle = menuData->entries.messageBoxStyle.selected;
++        Port_SetSetting(PORT_SETTING_3D_EDGES, menuData->entries.edges3D.selected);
+     }
+ 
+     Options_SetTextSpeed(menuData->saveOptions, menuData->options.textSpeed);
+@@ -594,7 +604,7 @@
+         menuData->tilemapData->screenWidth / 8,
+         menuData->tilemapData->screenHeight / 8);
+ 
+-    Bg_SetOffset(menuData->bgConfig, BG_LAYER_MAIN_0, BG_OFFSET_UPDATE_SET_Y, -FIRST_ENTRY_OFFSET);
++    Bg_SetOffset(menuData->bgConfig, BG_LAYER_MAIN_0, BG_OFFSET_UPDATE_SET_Y, CURSOR_SCROLL(0));
+     Bg_ScheduleTilemapTransfer(menuData->bgConfig, BG_LAYER_MAIN_2);
+     Bg_ScheduleTilemapTransfer(menuData->bgConfig, BG_LAYER_MAIN_0);
+     Bg_ScheduleTilemapTransfer(menuData->bgConfig, BG_LAYER_SUB_0);
+@@ -683,8 +693,14 @@
+     OptionsMenu_Text_BattleStyleLabel,
+     OptionsMenu_Text_ButtonModeLabel,
+     OptionsMenu_Text_MessageBoxStyleLabel,
++    0, /* port: 3D EDGES, sPortLabel */
+     OptionsMenu_Text_CloseLabel,
+ };
++
++/* The port's row: its label, choices and description, not in the ROM. */
++static const char sPortLabel[] = "3D EDGES";
++static const char *const sPortChoices[] = { "NORMAL", "SMOOTH" };
++static const char sPortDescription[] = "Smooth draws 3D scenes at twice the\nresolution, for softer edges.";
+ 
+ static void PrintTitleAndEntries(OptionsMenuData *menuData)
+ {
+@@ -705,12 +721,18 @@
+ 
+     for (i = 0; i < MAX_ENTRIES; i++) {
+         String_Clear(string);
+-        MessageLoader_GetString(menuData->msgLoader, sEntryLabels[i], string);
++        if (i == ENTRY_3D_EDGES) {
++            String *label = Port_NewString(sPortLabel, menuData->heapID);
++            String_Copy(string, label);
++            String_Free(label);
++        } else {
++            MessageLoader_GetString(menuData->msgLoader, sEntryLabels[i], string);
++        }
+         Text_AddPrinterWithParamsAndColor(&menuData->windows.entries,
+             FONT_SYSTEM,
+             string,
+             4,
+-            16 * i,
++            SINGLE_ENTRY_HEIGHT * i,
+             TEXT_SPEED_NO_TRANSFER,
+             whiteBg,
+             NULL);
+@@ -733,6 +755,7 @@
+     2,
+     3,
+     20,
++    2,
+     0,
+ };
+ 
+@@ -743,6 +766,7 @@
+     OptionsMenu_Text_BattleStyleShift,
+     OptionsMenu_Text_ButtonModeNormal,
+     OptionsMenu_Text_MessageBoxStyle_01,
++    0,
+     NULL,
+ };
+ 
+@@ -752,6 +776,10 @@
+     for (i = 0; i < MAX_ENTRIES; i++) {
+         menuData->entries.asArray[i].numChoices = sNumChoicesPerEntry[i];
+         for (j = 0; j < sNumChoicesPerEntry[i]; j++) {
++            if (i == ENTRY_3D_EDGES) {
++                menuData->entries.asArray[i].choices[j] = Port_NewString(sPortChoices[j], menuData->heapID);
++                continue;
++            }
+             menuData->entries.asArray[i].choices[j] = MessageLoader_GetNewString(menuData->msgLoader, sFirstChoicePerEntry[i] + j);
+         }
+     }
+@@ -762,9 +790,10 @@
+     menuData->entries.soundMode.selected = menuData->options.soundMode;
+     menuData->entries.buttonMode.selected = menuData->options.buttonMode;
+     menuData->entries.messageBoxStyle.selected = menuData->options.messageBoxStyle;
++    menuData->entries.edges3D.selected = menuData->edges3D;
+ }
+ 
+-static const s8 sEntryXOffsets[] = { 0, 0, 0, 0, 0, 0, 0 };
++static const s8 sEntryXOffsets[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+ 
+ static void PrintEntryChoices(OptionsMenuData *menuData, u16 entry)
+ {
+@@ -839,8 +868,19 @@
+     Window_CopyToVRAM(&menuData->windows.asArray[1]);
+ }
+ 
++static void PrintStringAsDescription(OptionsMenuData *menuData, String *string, BOOL scheduleVRAMCopy);
++
+ static void PrintBankEntryAsDescription(OptionsMenuData *menuData, u16 entry, BOOL scheduleVRAMCopy)
+ {
++    String *string = String_Init(256, menuData->heapID);
++    MessageLoader_GetString(menuData->msgLoader, entry, string);
++    PrintStringAsDescription(menuData, string, scheduleVRAMCopy);
++}
++
++/* Port: the description printing of PrintBankEntryAsDescription, for any
++ * string (frees it). */
++static void PrintStringAsDescription(OptionsMenuData *menuData, String *string, BOOL scheduleVRAMCopy)
++{
+     // Kill any active printer
+     if (IsTextPrinterDone(menuData) == FALSE) {
+         Text_RemovePrinter(menuData->textPrinter);
+@@ -851,8 +891,6 @@
+     Window_FillTilemap(&menuData->windows.description, 15);
+ 
+     TextColor color = TEXT_COLOR(1, 2, 15);
+-    String *string = String_Init(256, menuData->heapID);
+-    MessageLoader_GetString(menuData->msgLoader, entry, string);
+ 
+     if (scheduleVRAMCopy == FALSE) {
+         menuData->textPrinter = Text_AddPrinterWithParamsAndColor(&menuData->windows.description,
+@@ -900,20 +938,20 @@
+     }
+ 
+     if (JOY_NEW(PAD_KEY_UP)) {
+-        menuData->cursor = (menuData->cursor + 7 - 1) % 7;
++        menuData->cursor = (menuData->cursor + MAX_ENTRIES - 1) % MAX_ENTRIES;
+         Bg_ScheduleScroll(menuData->bgConfig,
+             BG_LAYER_MAIN_0,
+             BG_OFFSET_UPDATE_SET_Y,
+-            -(menuData->cursor * SINGLE_ENTRY_HEIGHT + FIRST_ENTRY_OFFSET));
++            CURSOR_SCROLL(menuData->cursor));
+ 
+         PrintEntryDescription(menuData, menuData->cursor, TRUE);
+         Sound_PlayEffect(SE_CONFIRM_sseq_3);
+     } else if (JOY_NEW(PAD_KEY_DOWN)) {
+-        menuData->cursor = (menuData->cursor + 1) % 7;
++        menuData->cursor = (menuData->cursor + 1) % MAX_ENTRIES;
+         Bg_ScheduleScroll(menuData->bgConfig,
+             BG_LAYER_MAIN_0,
+             BG_OFFSET_UPDATE_SET_Y,
+-            -(menuData->cursor * SINGLE_ENTRY_HEIGHT + FIRST_ENTRY_OFFSET));
++            CURSOR_SCROLL(menuData->cursor));
+ 
+         PrintEntryDescription(menuData, menuData->cursor, TRUE);
+         Sound_PlayEffect(SE_CONFIRM_sseq_3);
+@@ -927,7 +965,8 @@
+         || menuData->options.battleStyle != menuData->entries.battleStyle.selected
+         || menuData->options.soundMode != menuData->entries.soundMode.selected
+         || menuData->options.buttonMode != menuData->entries.buttonMode.selected
+-        || menuData->options.messageBoxStyle != menuData->entries.messageBoxStyle.selected;
++        || menuData->options.messageBoxStyle != menuData->entries.messageBoxStyle.selected
++        || menuData->edges3D != (int)menuData->entries.edges3D.selected;
+ }
+ 
+ static const WindowTemplate sConfirmationWindowTemplate = {
+@@ -961,10 +1000,15 @@
+     OptionsMenu_Text_BattleStyleDescription,
+     OptionsMenu_Text_ButtonModeDescription,
+     OptionsMenu_Text_MessageBoxStyleDescription,
++    0, /* port: sPortDescription */
+     OptionsMenu_Text_CloseDescription,
+ };
+ 
+ static void PrintEntryDescription(OptionsMenuData *menuData, u16 entry, BOOL scheduleVRAMCopy)
+ {
++    if (entry == ENTRY_3D_EDGES) {
++        PrintStringAsDescription(menuData, Port_NewString(sPortDescription, menuData->heapID), scheduleVRAMCopy);
++        return;
++    }
+     PrintBankEntryAsDescription(menuData, sEntryDescriptions[entry], scheduleVRAMCopy);
+ }
